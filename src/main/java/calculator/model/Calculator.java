@@ -1,11 +1,16 @@
 package calculator.model;
 
+import static util.Error.NOT_INTEGER_RANGE;
+import static util.Error.NOT_POSITIVE;
+import static util.Error.UNDEFINED_DELIMITER;
+
 public class Calculator {
     private final String CUSTOM_DELIMITER_HEADER = "//";
     private final String CUSTOM_DELIMITER_FOOTER = "\\n";
     private final String BASIC_DELIMITER_COMMA = ",";
     private final String BASIC_DELIMITER_COLON = ":";
     private final String BASIC_DELIMITER_REGEX = "[" + BASIC_DELIMITER_COMMA + BASIC_DELIMITER_COLON + "]";
+    private final String NUMBERFORMAT_REGEX = "^[0-9]+$";
     private int result = 0;
 
     public Calculator(final String text) {
@@ -40,13 +45,16 @@ public class Calculator {
             validatePositive(number);
             return number;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
+            if (rawNumber.matches(NUMBERFORMAT_REGEX)) {
+                throw new IllegalArgumentException(NOT_INTEGER_RANGE.getDesciption());
+            }
+            throw new IllegalArgumentException(UNDEFINED_DELIMITER.getDesciption());
         }
     }
 
     private void validatePositive(int number) {
         if (number < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(NOT_POSITIVE.getDesciption());
         }
     }
 
