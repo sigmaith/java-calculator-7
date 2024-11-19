@@ -1,14 +1,14 @@
-package calculator.service;
+package calculator.controller;
 
 import static calculator.view.InputView.askInput;
 import static calculator.view.OutputView.printResult;
 
 import calculator.model.Calculator;
 
-public class CalculatorService {
+public class Controller {
     private final Calculator calculator;
 
-    public CalculatorService() {
+    public Controller() {
         calculator = new Calculator(askInput());
     }
 

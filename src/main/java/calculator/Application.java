@@ -1,10 +1,10 @@
 package calculator;
 
-import calculator.service.CalculatorService;
+import calculator.controller.Controller;
 
 public class Application {
     public static void main(String[] args) {
-        CalculatorService calculatorService = new CalculatorService();
+        Controller calculatorService = new Controller();
         calculatorService.operate();
     }
 }
