@@ -2,6 +2,7 @@ package calculator.model;
 
 import static util.Error.NOT_INTEGER_RANGE;
 import static util.Error.NOT_POSITIVE;
+import static util.Error.NUMBER_CONTAINED_CUSTOM_DELIMITER;
 import static util.Error.UNDEFINED_DELIMITER;
 
 public class Calculator {
@@ -11,7 +12,8 @@ public class Calculator {
     private final String BASIC_DELIMITER_COLON = ":";
     private final String BASIC_DELIMITER_REGEX = "[" + BASIC_DELIMITER_COMMA + BASIC_DELIMITER_COLON + "]";
     private final String NUMBERFORMAT_REGEX = "^[0-9]+$";
-    private int result = 0;
+    private final String NUMBER_CONTAINED_STRING_REGEX = ".*[0-9].*";
+    private int result;
 
     public Calculator(final String text) {
         result = sum(text);
@@ -32,7 +34,11 @@ public class Calculator {
 
     private String separateCustomDelimiter(final String text) {
         int indexOfFooter = getFooterIndex(text);
-        return text.substring(indexOfFooter - 2, indexOfFooter);
+        String customDelimiter = text.substring(indexOfFooter - 2, indexOfFooter);
+        if (customDelimiter.matches(NUMBER_CONTAINED_STRING_REGEX)) {
+            throw new IllegalArgumentException(NUMBER_CONTAINED_CUSTOM_DELIMITER.getDesciption());
+        }
+        return customDelimiter;
     }
 
     private int getFooterIndex(final String text) {
