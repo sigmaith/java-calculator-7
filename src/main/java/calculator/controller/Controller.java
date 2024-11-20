@@ -1,18 +1,21 @@
 package calculator.controller;
 
-import static calculator.view.InputView.askInput;
+import static calculator.view.InputView.askExpression;
 import static calculator.view.OutputView.printResult;
 
-import calculator.model.Calculator;
+import calculator.model.Adder;
+import calculator.model.Converter;
+import calculator.model.PositiveNumbers;
 
 public class Controller {
-    private final Calculator calculator;
+    private final Converter converter;
 
     public Controller() {
-        calculator = new Calculator(askInput());
+        converter = new Converter();
     }
 
     public void operate() {
-        printResult(calculator.getResult());
+        PositiveNumbers positiveNumbers = askExpression(new Converter());
+        printResult(new Adder(positiveNumbers).getResult());
     }
 }

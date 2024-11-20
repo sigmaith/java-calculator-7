@@ -2,7 +2,7 @@ package calculator.model;
 
 import static util.Error.NUMBER_CONTAINED_CUSTOM_DELIMITER;
 
-public class Calculator {
+public class Converter {
     private final String CUSTOM_DELIMITER_HEADER = "//";
     private final String CUSTOM_DELIMITER_FOOTER = "\\n";
     private final String BASIC_DELIMITER_COMMA = ",";
@@ -10,17 +10,9 @@ public class Calculator {
     private final String BASIC_DELIMITER_REGEX = "[" + BASIC_DELIMITER_COMMA + BASIC_DELIMITER_COLON + "]";
     private final String NUMBER_CONTAINED_STRING_REGEX = ".*[0-9].*";
 
-    private PositiveNumbers positiveNumbers;
-    private int result;
-
-    public Calculator(final String text) {
+    public PositiveNumbers convert(final String text) {
         String[] textParsed = parse(text);
-        positiveNumbers = new PositiveNumbers(textParsed);
-        result = positiveNumbers.getSumOfPositiveNumbers();
-    }
-
-    public int getResult() {
-        return result;
+        return new PositiveNumbers(textParsed);
     }
 
     private String[] parse(final String text) {
