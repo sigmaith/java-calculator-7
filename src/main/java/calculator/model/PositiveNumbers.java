@@ -6,7 +6,7 @@ import java.util.List;
 public class PositiveNumbers {
     private List<PositiveNumber> positiveNumbers;
 
-    public PositiveNumbers(String[] rawNumbers) {
+    public PositiveNumbers(final String[] rawNumbers) {
         positiveNumbers = Arrays.stream(rawNumbers).map(rawNumber -> new PositiveNumber(rawNumber)).toList();
     }
 

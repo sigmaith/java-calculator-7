@@ -8,7 +8,7 @@ import calculator.model.PositiveNumbers;
 public class InputView {
     private static final String INPUT_GUIDE = "덧셈할 문자열을 입력해 주세요.";
 
-    public static PositiveNumbers askExpression(Converter converter) {
+    public static PositiveNumbers askExpression(final Converter converter) {
         System.out.println(INPUT_GUIDE);
         return converter.convert(readLine());
     }
