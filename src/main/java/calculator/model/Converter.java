@@ -5,15 +5,11 @@ import static util.Error.NUMBER_CONTAINED_CUSTOM_DELIMITER;
 public class Converter {
     private final String CUSTOM_DELIMITER_HEADER = "//";
     private final String CUSTOM_DELIMITER_FOOTER = "\\n";
-    private final String BASIC_DELIMITER_COMMA = ",";
-    private final String BASIC_DELIMITER_COLON = ":";
-    private final String BASIC_DELIMITER_REGEX = "[" + BASIC_DELIMITER_COMMA + BASIC_DELIMITER_COLON + "]";
     private final String NUMBER_CONTAINED_STRING_REGEX = ".*[0-9].*";
 
-    private String text;
+    Delimiters delimiters = new Delimiters();
 
     public PositiveNumbers convert(final String text) {
-        this.text = text;
         String[] textParsed = parse(text);
         return new PositiveNumbers(textParsed);
     }
@@ -21,11 +17,12 @@ public class Converter {
     private String[] parse(final String text) {
         if (text.startsWith(CUSTOM_DELIMITER_HEADER) && text.contains(CUSTOM_DELIMITER_FOOTER)) {
             String delimiterCustom = separateCustomDelimiter(text);
+            delimiters.setCustomDelimiter(delimiterCustom);
             String textReplaced = text.substring(getFooterIndex(text) + 2)
-                    .replace(delimiterCustom, BASIC_DELIMITER_COMMA);
-            return textReplaced.split(BASIC_DELIMITER_REGEX);
+                    .replace(delimiterCustom, delimiters.getBASIC_DELIMITER());
+            return textReplaced.split(delimiters.getBASIC_DELIMITER_REGEX());
         }
-        return text.split(BASIC_DELIMITER_REGEX);
+        return text.split(delimiters.getBASIC_DELIMITER_REGEX());
     }
 
     private String separateCustomDelimiter(final String text) {
