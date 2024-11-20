@@ -10,7 +10,10 @@ public class Converter {
     private final String BASIC_DELIMITER_REGEX = "[" + BASIC_DELIMITER_COMMA + BASIC_DELIMITER_COLON + "]";
     private final String NUMBER_CONTAINED_STRING_REGEX = ".*[0-9].*";
 
+    private String text;
+
     public PositiveNumbers convert(final String text) {
+        this.text = text;
         String[] textParsed = parse(text);
         return new PositiveNumbers(textParsed);
     }
